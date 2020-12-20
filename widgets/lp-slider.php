@@ -40,7 +40,7 @@ class LP_Slider extends Widget_Base {
      * @return string Widget title.
      */
     public function get_title() {
-        return __( 'LP Slider', 'plugin-name' );
+        return __( 'Litipay Carousel', 'plugin-name' );
     }
 
     /**
@@ -56,6 +56,10 @@ class LP_Slider extends Widget_Base {
     public function get_icon() {
         return 'eicon-post-navigation';
     }
+
+	public function get_keywords() {
+		return ['slider', 'lp-slider', 'carousel', 'litipay carousel', 'litipay', 'shop'];
+	}
 
     /**
      * Get widget categories.
