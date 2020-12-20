@@ -199,15 +199,22 @@ class LP_Carousel extends Widget_Base {
                     [
                         'image' => [
                             'url' => Utils::get_placeholder_image_src(),
-                        ],
+						],
+						'review' => __( '"I was only being offered a small amount to cover our medical bills after a car accident. Litipay helped to cover my medical bills so I could keep my case open."', 'happy-elementor-addons' ),
+						'reviewer' => __( 'Jhon Bommer', 'happy-elementor-addons' ),
+						'title' => __( 'Sample Case Details', 'happy-elementor-addons' ),
+						'desc' => __( 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo quibusdam quos aut assumenda deleniti, dignissimos maxime dolores tempora unde ex quis facere aperiam corrupti deserunt, nihil error animi enim ipsa. Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo quibusdam quos aut assumenda deleniti, dignissimos maxime dolores tempora unde ex quis facere aperiam corrupti deserunt, nihil error animi enim ipsa!', 'happy-elementor-addons' ),
+                    ],
+                    [
                         'image' => [
                             'url' => Utils::get_placeholder_image_src(),
-                        ],
-                        'image' => [
-                            'url' => Utils::get_placeholder_image_src(),
-                        ],
+						],
+						'review' => __( '"I was only being offered a small amount to cover our medical bills after a car accident. Litipay helped to cover my medical bills so I could keep my case open."', 'happy-elementor-addons' ),
+						'reviewer' => __( 'Jhon Bommer', 'happy-elementor-addons' ),
+						'title' => __( 'Sample Case Details', 'happy-elementor-addons' ),
+						'desc' => __( 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo quibusdam quos aut assumenda deleniti, dignissimos maxime dolores tempora unde ex quis facere aperiam corrupti deserunt, nihil error animi enim ipsa. Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo quibusdam quos aut assumenda deleniti, dignissimos maxime dolores tempora unde ex quis facere aperiam corrupti deserunt, nihil error animi enim ipsa!', 'happy-elementor-addons' ),
                     ]
-                ]
+				]
             ]
         );
 
@@ -947,7 +954,7 @@ class LP_Carousel extends Widget_Base {
 
         ?>
 
-        <div class="lpjs-slick lp-slick lp-tst-carousel-container">
+        <div class="lpjs-slick lp-tst-carousel-container">
 
             <?php foreach ( $settings['slides'] as $slide ) :
                 $image = wp_get_attachment_image_url( $slide['image']['id'], $settings['thumbnail_size'] );
@@ -967,7 +974,7 @@ class LP_Carousel extends Widget_Base {
 
 						<?php if ( $image ) : ?>
 							<div class="lp-tst__thumb">
-								<img class="lp-slick-img" src="<?php echo esc_url( $image ); ?>" alt="<?php echo esc_attr( $slide['title'] ); ?>">
+								<img class="lp-slick-img" src="<?php echo esc_url( $image ); ?>" alt="<?php echo esc_attr( $slide['reviewer'] ); ?>">
 							</div>
                         <?php endif; ?>
 

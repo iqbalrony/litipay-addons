@@ -111,10 +111,21 @@
 					selectors: {
 						container: '.lp-tst-carousel-container',
 					},
-					autoplay: true,
-					// prevArrow: '<button type="button" class="slick-prev"><i class="hm hm-arrow-left"></i></button>',
-					// nextArrow: '<button type="button" class="slick-next"><i class="hm hm-arrow-right"></i></button>',
 					appendArrows:  $scope.find('.lp-tst-carousel-nav'),
+					adaptiveHeight:  true,
+				});
+			}
+		);
+
+		elementorFrontend.hooks.addAction(
+			'frontend/element_ready/lp-carousel-2.default',
+			function ($scope) {
+				elementorFrontend.elementsHandler.addHandler(LpCarouselSettings, {
+					$element: $scope,
+					selectors: {
+						container: '.lp-tst-carousel-2-container',
+					},
+					appendArrows:  $scope.find('.lp-tst-carousel-2-nav'),
 					adaptiveHeight:  true,
 				});
 			}
