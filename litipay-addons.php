@@ -258,10 +258,10 @@ final class LitipayAddons {
 	public function register_widgets() {
 
 		// Include Widget files
-		include_once __DIR__ . '/widgets/lp-slider.php';
+		include_once __DIR__ . '/widgets/lp-carousel.php';
 
 		// Register widget
-		\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new \LitipayAddons\Widget\LP_Slider() );
+		\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new \LitipayAddons\Widget\LP_Carousel() );
 
 	}
 

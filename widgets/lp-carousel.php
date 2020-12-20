@@ -13,7 +13,7 @@ use \Elementor\Widget_Base;
 use Elementor\Group_Control_Image_Size;
 
 
-class LP_Slider extends Widget_Base {
+class LP_Carousel extends Widget_Base {
 
     /**
      * Get widget name.
@@ -26,7 +26,7 @@ class LP_Slider extends Widget_Base {
      * @return string Widget name.
      */
     public function get_name() {
-        return 'lp-slider';
+        return 'lp-carousel';
     }
 
     /**
@@ -73,6 +73,18 @@ class LP_Slider extends Widget_Base {
      */
     public function get_categories() {
         return ['general'];
+    }
+
+    /**
+     * Overriding default function to add custom html class.
+     *
+     * @return string
+     */
+    public function get_html_wrapper_class() {
+        $html_class = parent::get_html_wrapper_class();
+        $html_class .= ' ' . $this->get_name();
+        $html_class .= ' lp-tst-carousel';
+        return rtrim( $html_class );
     }
 
     /**
@@ -303,8 +315,8 @@ class LP_Slider extends Widget_Base {
                 'options' => [
                     'none' => __( 'None', 'happy-elementor-addons' ),
                     'arrow' => __( 'Arrow', 'happy-elementor-addons' ),
-                    'dots' => __( 'Dots', 'happy-elementor-addons' ),
-                    'both' => __( 'Arrow & Dots', 'happy-elementor-addons' ),
+                    // 'dots' => __( 'Dots', 'happy-elementor-addons' ),
+                    // 'both' => __( 'Arrow & Dots', 'happy-elementor-addons' ),
                 ],
                 'default' => 'arrow',
                 'frontend_available' => true,
@@ -320,7 +332,7 @@ class LP_Slider extends Widget_Base {
 		$this->slider_review_controls();
 		$this->slider_content_controls();
 		$this->nav_arrow_controls();
-		$this->dot_controls();
+		//$this->dot_controls();
 	}
 
     protected function slider_item_controls() {
@@ -333,11 +345,22 @@ class LP_Slider extends Widget_Base {
             ]
         );
 
+        /* $this->add_group_control(
+            Group_Control_Background::get_type(),
+            [
+                'name' => 'item_background',
+                'selector' => '{{WRAPPER}} .lp-tst-carousel-item',
+                'exclude' => [
+                    'image'
+                ]
+            ]
+        ); */
+
         $this->add_group_control(
             Group_Control_Border::get_type(),
             [
                 'name' => 'item_border',
-                'selector' => '{{WRAPPER}} .lp-slick-item',
+                'selector' => '{{WRAPPER}} .lp-tst-carousel-item',
             ]
         );
 
@@ -348,7 +371,7 @@ class LP_Slider extends Widget_Base {
                 'type' => Controls_Manager::DIMENSIONS,
                 'size_units' => [ 'px', '%' ],
                 'selectors' => [
-                    '{{WRAPPER}} .lp-slick-item' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}}; overflow: hidden;',
+                    '{{WRAPPER}} .lp-tst-carousel-item' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}}; overflow: hidden;',
                 ],
             ]
         );
@@ -602,9 +625,9 @@ class LP_Slider extends Widget_Base {
             [
                 'label' => __( 'Navigation - Arrow', 'happy-elementor-addons' ),
                 'tab'   => Controls_Manager::TAB_STYLE,
-                // 'condition' => [
-                //     'autoplay' => 'yes'
-                // ],
+                'condition' => [
+                    'navigation' => 'arrow'
+                ],
             ]
         );
 
@@ -637,7 +660,7 @@ class LP_Slider extends Widget_Base {
                     ],
                 ],
                 'selectors' => [
-                    '{{WRAPPER}} .lp-slick-nav ' => 'top: {{SIZE}}{{UNIT}};',
+                    '{{WRAPPER}} .lp-tst-carousel-nav ' => 'top: {{SIZE}}{{UNIT}};',
                 ],
             ]
         );
@@ -658,7 +681,7 @@ class LP_Slider extends Widget_Base {
                     ],
                 ],
                 'selectors' => [
-                    '{{WRAPPER}} .lp-slick-nav' => 'left: {{SIZE}}{{UNIT}};',
+                    '{{WRAPPER}} .lp-tst-carousel-nav' => 'left: {{SIZE}}{{UNIT}};',
                 ],
             ]
         );
@@ -914,15 +937,17 @@ class LP_Slider extends Widget_Base {
 
         if ( empty( $settings['slides'] ) ) {
             return;
-        }
-		$this->add_render_attribute(
-			'_wrapper', 'class', [
-				'lp-slider'
-			]
-		);
+		}
+
+		// $this->add_render_attribute(
+		// 	'_wrapper', 'class', [
+		// 		'lp-tst-carousel'
+		// 	]
+		// );
+
         ?>
 
-        <div class="lpjs-slick lp-slick lp-slick--slider">
+        <div class="lpjs-slick lp-slick lp-tst-carousel-container">
 
             <?php foreach ( $settings['slides'] as $slide ) :
                 $image = wp_get_attachment_image_url( $slide['image']['id'], $settings['thumbnail_size'] );
@@ -931,13 +956,13 @@ class LP_Slider extends Widget_Base {
 					$image = $slide['image']['url'];
 				}
 
-				$id = 'lp-slick-item-' . $slide['_id'];
+				$id = 'lp-tst-carousel-item-' . $slide['_id'];
 
-				$this->add_render_attribute( $id, 'class', 'lp-slick-item lp-tst-item' );
+				$this->add_render_attribute( $id, 'class', 'lp-tst-carousel-item' );
 
 				?>
 
-                <div class="lp-slick-slide">
+                <div class="lp-tst-carousel-inner">
 					<div <?php $this->print_render_attribute_string( $id ); ?>>
 
 						<?php if ( $image ) : ?>
@@ -981,7 +1006,9 @@ class LP_Slider extends Widget_Base {
             <?php endforeach; ?>
 
         </div>
-			<div class="lp-slick-nav"></div>
+		<?php if ( 'arrow' === $settings['navigation'] ) : ?>
+			<div class="lp-tst-carousel-nav"></div>
+		<?php endif; ?>
 
         <?php
     }

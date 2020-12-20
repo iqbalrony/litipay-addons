@@ -3,7 +3,7 @@
 
 	$(window).on("elementor/frontend/init", function() {
 
-		var LpSliderBase = elementorModules.frontend.handlers.Base.extend({
+		var LpCarouselSettings = elementorModules.frontend.handlers.Base.extend({
 			onInit: function () {
 				elementorModules.frontend.handlers.Base.prototype.onInit.apply(this, arguments);
 				this.run();
@@ -50,7 +50,7 @@
 					slidesToScroll: 1,
 				};
 
-				if( this.getSettings('appendArrows') ){
+				if( 'arrow' === this.getElementSettings('navigation') && this.getSettings('appendArrows') ){
 					settings.appendArrows =  this.getSettings('appendArrows');
 				}
 
@@ -93,7 +93,7 @@
 
 				var $readySettings = $.extend({}, this.getDefaultSettings(), settings);
 
-				console.log($readySettings);
+				//console.log($readySettings);
 				return $readySettings;
 			},
 
@@ -104,17 +104,17 @@
 
 		// Slider
 		elementorFrontend.hooks.addAction(
-			'frontend/element_ready/lp-slider.default',
+			'frontend/element_ready/lp-carousel.default',
 			function ($scope) {
-				elementorFrontend.elementsHandler.addHandler(LpSliderBase, {
+				elementorFrontend.elementsHandler.addHandler(LpCarouselSettings, {
 					$element: $scope,
 					selectors: {
-						container: '.lp-slick--slider',
+						container: '.lp-tst-carousel-container',
 					},
 					autoplay: true,
 					// prevArrow: '<button type="button" class="slick-prev"><i class="hm hm-arrow-left"></i></button>',
 					// nextArrow: '<button type="button" class="slick-next"><i class="hm hm-arrow-right"></i></button>',
-					appendArrows:  $scope.find('.lp-slick-nav'),
+					appendArrows:  $scope.find('.lp-tst-carousel-nav'),
 					adaptiveHeight:  true,
 				});
 			}
